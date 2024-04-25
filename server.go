@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 )
@@ -11,6 +12,9 @@ import (
 func main() {
 
 	router := mux.NewRouter()
+
+	googleCreds := os.Getenv("GOOGLE_APPLICATION_CREDENTIAL")
+	fmt.Println(googleCreds)
 
 	const port string = ":8000"
 
@@ -21,6 +25,7 @@ func main() {
 	//router.HandleFunc("/posts", getPosts).Methods("GET")
 	router.HandleFunc("/posts", getPosts).Methods("GET")
 	router.HandleFunc("/posts", addPost).Methods("POST")
+
 	log.Println("Server listening on port", port)
 	log.Fatalln(http.ListenAndServe(port, router))
 
