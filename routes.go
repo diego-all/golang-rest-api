@@ -23,12 +23,13 @@ import (
 // }
 
 var (
-	repo repository.PostRepository = repository.NewPostRepository()
+	repo repository.PostRepository = repository.NewFirestoreRepository()
+	//repo repository.PostRepository = repository.NewPostRepository()
 )
 
 func getPosts(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
-	posts, err := repo.FindAll()
+	posts, err := repo.FindAll() //have mixed up some business logic
 	if err != nil {
 		response.WriteHeader(http.StatusInternalServerError)
 		response.Write([]byte(`{"error": "Error getting the posts"}`))
